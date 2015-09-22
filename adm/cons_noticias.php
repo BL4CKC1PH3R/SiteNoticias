@@ -9,6 +9,25 @@
 		{
 	Inicio();
 ?>	
+<div id='resposta'></div>
+<div class='modal fade' id='modalVisualiza' role='dialog'>
+		<div class='modal-dialog modal-sm'>
+		<div class='modal-content'>
+        <div class='modal-header'>
+          <button type='button' class='close' data-dismiss='modal'>&times;</button>
+          <h4 class='modal-title'>Erro</h4>
+        </div>
+        <div class='modal-body'>
+          <p>Preencha todos os campos!</p>
+        </div>
+        <div class='modal-footer'>
+          <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 	<div>
 		<ul class="nav navbar-nav">
         <li><a href="index.html">Início</a></li>
@@ -75,15 +94,23 @@
 		
 		
 	$(".excluir_btn").click(function(){
-		var id = $(this).parents("tr").attr("id");
+		var v_id = $(this).parents("tr").attr("id");
 		
 		
-		$.post("util.php",{id:id, operacao:"excluir",tabela:"noticia"},function(dados){
+		$.post("util.php",{id:v_id, operacao:"excluir",tabela:"noticia"},function(dados){
 			$("tr#"+id).remove();
 			alert(dados);
 		});
 	});
 	
+	$(".visualizar_btn").click(function(){
+		var v_id = $(this).parents("tr").attr("id");
+					$.post("util.php",{id:v_id, operacao:"visualizar",tabela:"noticia"},function(dados){
+						$("#resposta").html(dados);
+					});
+					
+					
+				});
 
 </script>
 		

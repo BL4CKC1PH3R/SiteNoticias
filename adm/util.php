@@ -6,6 +6,11 @@ if(isset($_POST['operacao']))
 	{
 		excluir();
 	}
+	
+	else if($operacao == "visualizar") 
+	{
+		visualizar();
+	}
  }
 
 function excluir() {
@@ -18,6 +23,26 @@ function excluir() {
 	
 	if($conn){
 		echo "Foi";
+	}
+} 
+
+function visualizar() {
+	include("conexao.php");
+	$id = $_POST['id'];
+	$tabela = $_POST['tabela'];
+	
+	$SQL = "SELECT * FROM $tabela WHERE ID_NOTICIA = $id";
+	$resultado = $conn->query($SQL);
+	
+	if($resultado){
+		while($linha=mysqli_fetch_object($resultado))
+	{
+		echo "<script>
+		$('#modalVisualiza').modal('show');
+		$('.modal-body').html('<p>$linha->corpo</p>');
+		$('.modal-title').html('<p>$linha->titulo</p>');
+		</script>";
+	}
 	}
 } 
 
@@ -60,7 +85,7 @@ function noticias()
         echo "<td style='text-align: center;'>$linha->titulo</td>";
         echo "<td style='text-align: center;'>$linha->autor</td>";
         echo "<td style='text-align: center;'>$linha->data_postagem</td>";
-		echo "<td style='text-align: center;'><button type='button' class='btn btn-warning btn-sm'>
+		echo "<td style='text-align: center;'><button type='button' class='btn btn-warning btn-sm visualizar_btn'>
           <span class='glyphicon glyphicon-th-list'></span>
         </button>&nbsp;";
 		echo "<button type='button' class='btn btn-danger btn-sm excluir_btn'>
