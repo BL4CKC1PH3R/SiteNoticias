@@ -17,7 +17,7 @@
           <button type='button' class='close' data-dismiss='modal'>&times;</button>
           <h4 class='modal-title'>Erro</h4>
         </div>
-        <div class='modal-body'>
+        <div class='modal-body' id="texto">
           <p>Preencha todos os campos!</p>
         </div>
         <div class='modal-footer'>
@@ -94,23 +94,34 @@
 		
 		
 	$(".excluir_btn").click(function(){
-		var v_id = $(this).parents("tr").attr("id");
+
+		var id = $(this).parents("tr").attr("id");
 		
 		
-		$.post("util.php",{id:v_id, operacao:"excluir",tabela:"noticia"},function(dados){
+		$.post("util.php",{id:id, operacao:"excluir",tabela:"noticia"},function(dados){
 			$("tr#"+id).remove();
-			alert(dados);
+			$("#resposta").html(dados);
 		});
 	});
 	
 	$(".visualizar_btn").click(function(){
-		var v_id = $(this).parents("tr").attr("id");
-					$.post("util.php",{id:v_id, operacao:"visualizar",tabela:"noticia"},function(dados){
+		var id = $(this).parents("tr").attr("id");
+					$.post("util.php",{id:id, operacao:"visualizar",tabela:"noticia"},function(dados){
 						$("#resposta").html(dados);
 					});
 					
 					
 				});
+
+		  $(".editar_btn").click(function(){
+
+			  var id = $(this).parents("tr").attr("id");
+			  $.post("util.php",{id:id, operacao:"editar",tabela:"noticia"},function(dados){
+				alert(dados);
+			  });
+
+
+		  });
 
 </script>
 		

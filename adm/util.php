@@ -1,4 +1,5 @@
 <?php
+header('Content-type: text/html; charset=utf-8');
 if(isset($_POST['operacao']))
 {
 	$operacao = $_POST['operacao'];
@@ -11,6 +12,11 @@ if(isset($_POST['operacao']))
 	{
 		visualizar();
 	}
+
+	else if($operacao == "editar")
+	{
+		editar();
+	}
  }
 
 function excluir() {
@@ -22,9 +28,42 @@ function excluir() {
 	$conn->query($SQL);
 	
 	if($conn){
-		echo "Foi";
+		echo utf8_encode("<script>
+		$('#modalVisualiza').modal('show');
+		$('.modal-body').html('<p>Registro Excluido com Sucesso!</p>');
+     	$('.modal-title').html('<p>Exclusão</p>');
+		</script>");
 	}
 } 
+
+function editar() {
+	include("conexao.php");
+	$id = $_POST['id'];
+	$tabela = $_POST['tabela'];
+
+	$SQL = "SELECT * FROM $tabela WHERE ID_NOTICIA = $id";
+	$resultado = $conn->query($SQL);
+
+	if($resultado){
+		while($linha=mysqli_fetch_object($resultado))
+		{
+			echo "<script>
+
+				$.ajax({
+            type: 'POST',
+            data: {titulo:$linha->titulo, corpo:$linha->corpo, categoria:$linha->categoria},
+
+            url: 'edit_noticias.php',
+            dataType: 'html',
+            success: function(result){
+             alert('foi');
+            },
+	});
+		</script>";
+		}
+	}
+
+}
 
 function visualizar() {
 	include("conexao.php");
@@ -91,7 +130,7 @@ function noticias()
 		echo "<button type='button' class='btn btn-danger btn-sm excluir_btn'>
           <span class='glyphicon glyphicon-trash'></span>
         </button>&nbsp;";
-		echo "<button type='button' class='btn btn-success btn-sm'>
+		echo "<button type='button' class='btn btn-success btn-sm editar_btn'>
           <span class='glyphicon glyphicon-pencil'></span>
         </button></td>";
     echo "</tr>";

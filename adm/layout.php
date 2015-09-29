@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
+		<script src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
 	<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
 	<script src="http://malsup.github.com/jquery.form.js"></script> 
 	<style>

@@ -15,16 +15,16 @@
 				
 				$("#bt").click(function(){
 					
-					if( $('#titulo').val() == '' || $('#categoria').val() == '' || $('#corpo').val() == '' || $('#arquivo').val() == '') 
+					if( $('#titulo').val() == '' || $('#categoria').val() == '' || $('#corpo').html() == '' || $('#arquivo').val() == '')
 					{
 						
 						$("#myModal").modal('show');
 					}
 					else 
 					{
-						$('#conc_noticia').ajaxForm(function(dado)
+						$('#conc_noticia').ajaxForm(
 						{    
-							console.log(dado);
+
 						}).submit(); 
 						
 						$('#conc_noticia').hide("slow");
@@ -34,10 +34,8 @@
 					}
 					
 				});
-				
-				tinymce.init({
-            selector: "#corpo"
-        });
+
+
         });
 </script>
 	<div>
@@ -60,7 +58,7 @@
 	<?php 
 	Menu("Nova Notícia");
 	?>
-	<form action="conc_noticia.php" method="post" enctype="multipart/form-data" id="conc_noticia"> 
+	<form action="conc_noticias.php" method="post" enctype="multipart/form-data" id="conc_noticia">
 	
 		<div class="form-group">
 			<label>Titulo da Notícia:</label>
@@ -84,16 +82,16 @@
 		<div class="form-group">
 		<label>Corpo da Notícia:</label>
 			<br>
-			<textarea name="corpo" id="corpo" rows="10" cols="80" >
-                          
-            </textarea>
+			<textarea name="corpo" id="editor"> &lt;p&gt;Initial editor content.&lt;/p&gt; </textarea>
+			<script>
+				CKEDITOR.replace( 'corpo' );
+			</script>
 			
             
 		</div>
 		<div class="form-group">
 		<center>
-			<input type="button" class="btn btn-success" id='bt' value='Enviar'/>
-			
+			<a href="#" class="btn btn-success" id='bt'>Enviar</a>
 		</center>
 		</div>
 	</form>
